@@ -1,12 +1,12 @@
 <?php
-session_start(); 
+session_start();
 
 if (!isset($_SESSION['mail'])) {
 	header("Refresh: 3; url=../php/connexion.php"); //redirection vers le formulaire de connexion
 	echo "Vous devez vous connecter pour accéder à l'espace membre.<br><br><i>Redirection en cours, vers la page de connexion...</i>";
 	exit(0); //on arrête l'éxécution du reste de la page avec exit, si le membre n'est pas connecté
 }
-$mail = $_SESSION['mail']; 
+$mail = $_SESSION['mail'];
 
 include 'connect.php';
 
@@ -20,33 +20,33 @@ include 'header.php';
 
 <h1 class="text-center p-5">Espace membre</h1>
 <div class="p-3 bg-warning-subtle bg-opacity-10 border border-warning-subtle border-start-0 rounded-3 text-center">
-<h3 class="p-4">Vos informations:</h3>
-<?php if ($req): ?>  
-<p>Votre nom: <?= $info['nom']; ?></p>
-<p>Votre prénom: <?= $info['prenom']; ?></p>
-<p>Votre adresse email: <?= $info['mail']; ?></p>
-<p>Les alergies que vous avez signaler: <?= $info['alergies']; ?></p>
-<?php endif; ?>
+	<h3 class="p-4">Vos informations:</h3>
+	<?php if ($req) : ?>
+		<p>Votre nom: <?= $info['nom']; ?></p>
+		<p>Votre prénom: <?= $info['prenom']; ?></p>
+		<p>Votre adresse email: <?= $info['mail']; ?></p>
+		<p>Les alergies que vous avez signaler: <?= $info['alergies']; ?></p>
+	<?php endif; ?>
 </div>
 
 <div class="d-flex justify-content-center p-4">
-<a class="p-2" href="member.php?modifier"><button type="button" class="btn btn-outline-dark">Modifier vos informations</button></a>
-<a class="p-2" href="deconnexion.php"><button type="button" class="btn btn btn-outline-dark">Déconnexion</button></a>
-<a class="p-2" href="member.php?supprimer"><button type="button" class="btn btn-outline-dark">Supprimer votre compte</button></a>
+	<a class="p-2" href="member.php?modifier"><button type="button" class="btn btn-outline-dark">Modifier vos informations</button></a>
+	<a class="p-2" href="deconnexion.php"><button type="button" class="btn btn btn-outline-dark">Déconnexion</button></a>
+	<a class="p-2" href="member.php?supprimer"><button type="button" class="btn btn-outline-dark">Supprimer votre compte</button></a>
 </div>
 
 <?php
 //si "?modifier" est dans l'URL:
-	if (isset($_GET['supprimer'])) {
-		if ($_GET['supprimer'] != "ok")  { ?>
+if (isset($_GET['supprimer'])) {
+	if ($_GET['supprimer'] != "ok") { ?>
 		<div class="d-flex justify-content-center">
-	<p class="m-2">Êtes-vous sûr de vouloir supprimer votre compte définitivement?</p>
-					<br>
-					<a href='member.php?supprimer=ok'><button type="button" class="btn btn-danger">OUI</button>
-	</a> - <a href='member.php'>	<button type="button" class="btn btn-success">NON</button>
-	</a>
+			<p class="m-2">Êtes-vous sûr de vouloir supprimer votre compte définitivement?</p>
+			<br>
+			<a href='member.php?supprimer=ok'><button type="button" class="btn btn-danger">OUI</button>
+			</a> - <a href='member.php'> <button type="button" class="btn btn-success">NON</button>
+			</a>
 		</div>
-		<?php
+	<?php
 	} else {
 		//on supprime le membre avec "DELETE"
 		if (mysqli_query($mysqli, "DELETE FROM membres WHERE mail='$mail'")) {
@@ -59,15 +59,15 @@ include 'header.php';
 	}
 }
 //si "?modifier" est dans l'URL:
-	if (isset($_GET['modifier'])) {
-		?>
-		<div class="d-flex flex-column align-items-center">
-			<h5>Que souhaitez vous modifier ?</h5>
-			<p>Choisir une option:</p> 
-			<p>	<a href="member.php?modifier=mail"><button type="button" class="btn btn-outline-dark">Adresse email</button></a>
-				<a href="member.php?modifier=mdp"><button type="button" class="btn btn-outline-dark">Mot de passe</button></a>
-			</p>
-		</div>
+if (isset($_GET['modifier'])) {
+	?>
+	<div class="d-flex flex-column align-items-center">
+		<h5>Que souhaitez vous modifier ?</h5>
+		<p>Choisir une option:</p>
+		<p> <a href="member.php?modifier=mail"><button type="button" class="btn btn-outline-dark">Adresse email</button></a>
+			<a href="member.php?modifier=mdp"><button type="button" class="btn btn-outline-dark">Mot de passe</button></a>
+		</p>
+	</div>
 	<hr />
 	<?php
 	if ($_GET['modifier'] == "mail") {
@@ -77,17 +77,14 @@ include 'header.php';
 				echo "Le champ mail n'est pas reconnu.";
 			} else {
 				if (!preg_match("#^[a-z0-9_-]+((\.[a-z0-9_-]+){1,})?@[a-z0-9_-]+((\.[a-z0-9_-]+){1,})?\.[a-z]{2,30}$#i", $_POST['mail'])) {
-					//cette preg_match est un petit peu complexe, je vous invite à regarder l'explication détaillée sur mon site c2script.com
 					echo "L'adresse mail est incorrecte.";
-					//normalement l'input type="email" vérifie que l'adresse mail soit correcte avant d'envoyer le formulaire mais il faut toujours être prudent et vérifier côté serveur (ici) avant de valider définitivement
 				} else {
-					//tout est OK, on met à jours son compte dans la base de données:
 					if (mysqli_query($mysqli, "UPDATE membres SET mail='" . htmlentities($_POST['mail'], ENT_QUOTES, "UTF-8") . "' WHERE mail='$mail'")) {
 						echo "Adresse mail {$_POST['mail']} modifiée avec succès!";
 						$TraitementFini = true; //pour cacher le formulaire
 					} else {
 						echo "Une erreur est survenue, merci de réessayer ou contactez-nous si le problème persiste.";
-						//echo "<br>Erreur retournée: ".mysqli_error($mysqli);
+						echo "<br>Erreur retournée: " . mysqli_error($mysqli);
 					}
 				}
 			}
@@ -96,14 +93,13 @@ include 'header.php';
 	?>
 			<br>
 			<form method="post" action="member.php?modifier=mail">
-				<input type="email" name="mail" value="<?php echo $info['mail']; ?>" required><!-- required permet d'empêcher l'envoi du formulaire si le champ est vide -->
+				<input type="email" name="mail" value="<?php echo $info['mail']; ?>" required>
 				<input type="submit" name="valider" value="Valider la modification">
 			</form>
 		<?php
 		}
 	} elseif ($_GET['modifier'] == "mdp") {
 		echo "<p>Renseignez le formulaire ci-dessous pour modifier vos informations:</p>";
-		//si le formulaire est envoyé ("envoyé" signifie que le bouton submit est cliqué)
 		if (isset($_POST['valider'])) {
 			//vérifie si tous les champs sont bien pris en compte:
 			if (!isset($_POST['nouveau_mdp'], $_POST['confirmer_mdp'], $_POST['mdp'])) {
@@ -125,7 +121,7 @@ include 'header.php';
 							$LoggedIn = true; //pour cacher le formulaire
 						} else {
 							echo "Une erreur est survenue, merci de réessayer ou contactez-nous si le problème persiste.";
-							//echo "<br>Erreur retournée: ".mysqli_error($mysqli);
+							echo "<br>Erreur retournée: " . mysqli_error($mysqli);
 						}
 					}
 				}
@@ -135,7 +131,7 @@ include 'header.php';
 		?>
 			<br>
 			<form method="post" action="member.php?modifier=mdp">
-				<input type="password" name="nouveau_mdp" placeholder="Nouveau mot de passe..." required><!-- required permet d'empêcher l'envoi du formulaire si le champ est vide -->
+				<input type="password" name="nouveau_mdp" placeholder="Nouveau mot de passe..." required>
 				<input type="password" name="confirmer_mdp" placeholder="Confirmer nouveau passe..." required>
 				<input type="password" name="mdp" placeholder="Votre mot de passe actuel..." required>
 				<input type="submit" name="valider" value="Valider la modification">

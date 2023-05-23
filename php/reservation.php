@@ -38,7 +38,7 @@ if (isset($_POST['1200']) || isset($_POST['1215']) || isset($_POST['1230']) || i
     <div class="border rounded text-center text-danger">
       <p>Une erreur s'est produite, veuillez essayer plus tard</p>
     </div>
-<?php endif;
+  <?php endif;
 }
 
 
@@ -62,17 +62,17 @@ if ((isset($_POST['1900'])) || (isset($_POST['1915'])) || (isset($_POST['1930'])
 
   $sql7 = "INSERT INTO reservation2 (nom, prenom, tel, mail, date, couvert, alergie, heure) VALUES ('$nom', '$prenom', '$phone', '$email', '$date', '$couvert', '$alergie', '19:30')";
 
-   $sql8 = "INSERT INTO reservation2 (nom, prenom, tel, mail, date, couvert, alergie, heure) VALUES ('$nom', '$prenom', '$phone', '$email', '$date', '$couvert', '$alergie', '19:45')";
+  $sql8 = "INSERT INTO reservation2 (nom, prenom, tel, mail, date, couvert, alergie, heure) VALUES ('$nom', '$prenom', '$phone', '$email', '$date', '$couvert', '$alergie', '19:45')";
 
-$sql9 = "INSERT INTO reservation2 (nom, prenom, tel, mail, date, couvert, alergie, heure) VALUES ('$nom', '$prenom', '$phone', '$email', '$date', '$couvert', '$alergie', '20:00')";
+  $sql9 = "INSERT INTO reservation2 (nom, prenom, tel, mail, date, couvert, alergie, heure) VALUES ('$nom', '$prenom', '$phone', '$email', '$date', '$couvert', '$alergie', '20:00')";
 
-$sql10 = "INSERT INTO reservation2 (nom, prenom, tel, mail, date, couvert, alergie, heure) VALUES ('$nom', '$prenom', '$phone', '$email', '$date', '$couvert', '$alergie', '20:15')";
+  $sql10 = "INSERT INTO reservation2 (nom, prenom, tel, mail, date, couvert, alergie, heure) VALUES ('$nom', '$prenom', '$phone', '$email', '$date', '$couvert', '$alergie', '20:15')";
 
-$sql11 = "INSERT INTO reservation2 (nom, prenom, tel, mail, date, couvert, alergie, heure) VALUES ('$nom', '$prenom', '$phone', '$email', '$date', '$couvert', '$alergie', '20:30')";
+  $sql11 = "INSERT INTO reservation2 (nom, prenom, tel, mail, date, couvert, alergie, heure) VALUES ('$nom', '$prenom', '$phone', '$email', '$date', '$couvert', '$alergie', '20:30')";
 
-$sql12 = "INSERT INTO reservation2 (nom, prenom, tel, mail, date, couvert, alergie, heure) VALUES ('$nom', '$prenom', '$phone', '$email', '$date', '$couvert', '$alergie', '20:45')";
+  $sql12 = "INSERT INTO reservation2 (nom, prenom, tel, mail, date, couvert, alergie, heure) VALUES ('$nom', '$prenom', '$phone', '$email', '$date', '$couvert', '$alergie', '20:45')";
 
-$sql13 = "INSERT INTO reservation2 (nom, prenom, tel, mail, date, couvert, alergie, heure) VALUES ('$nom', '$prenom', '$phone', '$email', '$date', '$couvert', '$alergie', '21:00')";
+  $sql13 = "INSERT INTO reservation2 (nom, prenom, tel, mail, date, couvert, alergie, heure) VALUES ('$nom', '$prenom', '$phone', '$email', '$date', '$couvert', '$alergie', '21:00')";
 
   if (($mysqli->query($sql5)) || ($mysqli->query($sql6)) || ($mysqli->query($sql7)) || ($mysqli->query($sql8)) || ($mysqli->query($sql9)) || ($mysqli->query($sql10)) || ($mysqli->query($sql11)) || ($mysqli->query($sql12)) || ($mysqli->query($sql13))) : ?>
     <div class="border rounded text-center text-white bg-success">
@@ -82,8 +82,7 @@ $sql13 = "INSERT INTO reservation2 (nom, prenom, tel, mail, date, couvert, alerg
     <div class="border rounded text-center text-danger">
       <p>Une erreur s'est produite, veuillez essayer plus tard</p>
     </div>
-  <?php endif;
-
+<?php endif;
 }
 ?>
 
@@ -175,59 +174,59 @@ $sql13 = "INSERT INTO reservation2 (nom, prenom, tel, mail, date, couvert, alerg
 </section>
 
 <section class="w-75 mx-auto mt-5">
-<?php
-$maxCouvert = 30;
-// Requête SQL pour récupérer les dates et effectuer la somme des couverts
-$sql1 = "SELECT date, SUM(couvert) AS total_couvert FROM reservation GROUP BY date";
-$sql2 = "SELECT date, SUM(couvert) AS total_couvert FROM reservation2 GROUP BY date";
-$result1 = $mysqli->query($sql1);
-$result2 = $mysqli->query($sql2);
+  <?php
+  $maxCouvert = 30;
+  // Requête SQL pour récupérer les dates et effectuer la somme des couverts
+  $sql1 = "SELECT date, SUM(couvert) AS total_couvert FROM reservation GROUP BY date";
+  $sql2 = "SELECT date, SUM(couvert) AS total_couvert FROM reservation2 GROUP BY date";
+  $result1 = $mysqli->query($sql1);
+  $result2 = $mysqli->query($sql2);
 
-if (($result1->num_rows > 0) && ($result2->num_rows > 0)) {
-  // Parcourir les résultats
-  while ($row = $result1->fetch_assoc()) {
-    $date = $row["date"];
-    $totalCouvert = $row["total_couvert"];
-    $placeDispo = $maxCouvert - $totalCouvert;
-    if ($placeDispo <= 0): ?> 
-    <div class="dateDispo border rounded bg-danger text-center m-2 align-items-center">
-      <p class="mt-3">Date:  <?= $date ?>, nous sommes malheuresement complet à cette date.</p>
-    </div><br>
-   <?php else: ?>
-    <div class="placeDispoMidi border rounded bg-warning-subtle text-center m-2 align-items-center">
-      <p class="mt-3">Date:  <?= $date ?>, place disponible (midi): <?= $placeDispo ?></p>
-    </div>
-    <?php endif; ?>
-    <?php 
+  if (($result1->num_rows > 0) && ($result2->num_rows > 0)) {
+    // Parcourir les résultats
+    while ($row = $result1->fetch_assoc()) {
+      $date = $row["date"];
+      $totalCouvert = $row["total_couvert"];
+      $placeDispo = $maxCouvert - $totalCouvert;
+      if ($placeDispo <= 0) : ?>
+        <div class="dateDispo border rounded bg-danger text-center m-2 align-items-center">
+          <p class="mt-3">Date: <?= $date ?>, nous sommes malheuresement complet à cette date.</p>
+        </div><br>
+      <?php else : ?>
+        <div class="placeDispoMidi border rounded bg-warning-subtle text-center m-2 align-items-center">
+          <p class="mt-3">Date: <?= $date ?>, place disponible (midi): <?= $placeDispo ?></p>
+        </div>
+      <?php endif; ?>
+  <?php
+    }
   }
-}
-?>
+  ?>
 </section>
 
 <!-- date pour le soir -->
 <section class="w-75 mx-auto mt-5">
-<?php
-// Requête SQL pour récupérer les dates et effectuer la somme des couverts
+  <?php
+  // Requête SQL pour récupérer les dates et effectuer la somme des couverts
 
-if ($result2->num_rows > 0) {
-  // Parcourir les résultats
-  while ($row = $result2->fetch_assoc()) {
-    $date = $row["date"];
-    $totalCouvert = $row["total_couvert"];
-    $placeDispo = $maxCouvert - $totalCouvert;
-    if ($placeDispo <= 0): ?> 
-    <div class="dateDispo border rounded bg-danger text-center m-2 align-items-center">
-      <p class="mt-3">Date:  <?= $date ?>, nous sommes malheuresement complet à cette date.</p>
-    </div><br>
-   <?php else: ?>
-    <div class="placeDispoMidi border rounded bg-warning-subtle text-center m-2 align-items-center">
-      <p class="mt-3">Date:  <?= $date ?>, place disponible (soir): <?= $placeDispo ?></p>
-    </div>
-    <?php endif; ?>
-    <?php 
+  if ($result2->num_rows > 0) {
+    // Parcourir les résultats
+    while ($row = $result2->fetch_assoc()) {
+      $date = $row["date"];
+      $totalCouvert = $row["total_couvert"];
+      $placeDispo = $maxCouvert - $totalCouvert;
+      if ($placeDispo <= 0) : ?>
+        <div class="dateDispo border rounded bg-danger text-center m-2 align-items-center">
+          <p class="mt-3">Date: <?= $date ?>, nous sommes malheuresement complet à cette date.</p>
+        </div><br>
+      <?php else : ?>
+        <div class="placeDispoMidi border rounded bg-warning-subtle text-center m-2 align-items-center">
+          <p class="mt-3">Date: <?= $date ?>, place disponible (soir): <?= $placeDispo ?></p>
+        </div>
+      <?php endif; ?>
+  <?php
+    }
   }
-}
-?>
+  ?>
 
 </section>
 

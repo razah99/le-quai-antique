@@ -11,11 +11,11 @@ if (!isset($_SESSION['mail'])) {
 $req = mysqli_query($mysqli, "SELECT * FROM membres");
 $membre = mysqli_fetch_assoc($req);
 if (mysqli_num_rows($req) == 1) {
-		if (empty($membre['type']) AND ($member['type'] !== 'client')) {
-				header(('Location: admin.php'));
-		} else {
-				header('Location: member.php');
-				}
+	if (empty($membre['type']) and ($member['type'] !== 'client')) {
+		header(('Location: admin.php'));
+	} else {
+		header('Location: member.php');
+	}
 }
 $mail = $_SESSION['mail'];
 //on récupère les infos du membre si on souhaite les afficher dans la page:
@@ -25,35 +25,35 @@ $info = mysqli_fetch_assoc($req);
 ?>
 
 <div class="d-flex justify-content-center p-2">
-<a href="changeRmenu.php"><button type="button" class="btn btn-outline-dark m-2">MODIFIER LA CARTE</button>
-</a>
-<a href="changemenu.php"><button type="button" class="btn btn-outline-dark m-2">MODIFIER LE MENU</button>
-</a>
-<a href="changehourly.php"><button type="button" class="btn btn-outline-dark m-2">MODIFIER LES HORAIRES</button>
-</a>
+	<a href="changeRmenu.php"><button type="button" class="btn btn-outline-dark m-2">MODIFIER LA CARTE</button>
+	</a>
+	<a href="changemenu.php"><button type="button" class="btn btn-outline-dark m-2">MODIFIER LE MENU</button>
+	</a>
+	<a href="changehourly.php"><button type="button" class="btn btn-outline-dark m-2">MODIFIER LES HORAIRES</button>
+	</a>
 </div>
 <div class="d-flex justify-content-center mb-5">
-<a href="admin.php?modifier"><button type="button" class="btn btn-outline-dark m-2">MODIFIER VOS INFORMATIONS</button>
-</a>
-<a href="admin.php?supprimer"><button type="button" class="btn btn-outline-dark m-2">SUPPRIMER VOTRE COMPTE</button>
-</a>
-<a href="deconnexion.php"><button type="button" class="btn btn-outline-dark m-2">DÉCONNEXION</button>
-</a>
+	<a href="admin.php?modifier"><button type="button" class="btn btn-outline-dark m-2">MODIFIER VOS INFORMATIONS</button>
+	</a>
+	<a href="admin.php?supprimer"><button type="button" class="btn btn-outline-dark m-2">SUPPRIMER VOTRE COMPTE</button>
+	</a>
+	<a href="deconnexion.php"><button type="button" class="btn btn-outline-dark m-2">DÉCONNEXION</button>
+	</a>
 </div>
 <hr />
 
 <?php
 // si? "supprimer" est dans l'url:
 if (isset($_GET['supprimer'])) {
-	if ($_GET['supprimer'] != "ok")  { ?>
-	<div class="d-flex justify-content-center">
-<p class="m-2">Êtes-vous sûr de vouloir supprimer votre compte définitivement?</p>
-				<br>
-				<a href='admin.php?supprimer=ok'><button type="button" class="btn btn-danger">OUI</button>
-</a> - <a href='admin.php'>	<button type="button" class="btn btn-success">NON</button>
-</a>
-	</div>
-<?php				
+	if ($_GET['supprimer'] != "ok") { ?>
+		<div class="d-flex justify-content-center">
+			<p class="m-2">Êtes-vous sûr de vouloir supprimer votre compte définitivement?</p>
+			<br>
+			<a href='admin.php?supprimer=ok'><button type="button" class="btn btn-danger">OUI</button>
+			</a> - <a href='admin.php'> <button type="button" class="btn btn-success">NON</button>
+			</a>
+		</div>
+	<?php
 	} else {
 		if (mysqli_query($mysqli, "DELETE FROM membres WHERE mail='$mail'")) {
 			echo "Votre compte vient d'être supprimé définitivement.";
@@ -64,16 +64,16 @@ if (isset($_GET['supprimer'])) {
 }
 //si "?modifier" est dans l'URL:
 if (isset($_GET['modifier'])) {
-?>
-<div class="d-flex flex-column align-items-center">
-	<h5>Que souhaitez vous modifier ?</h5>
-	<p>Choisir une option:</p> 
-	<p>	<a href="admin.php?modifier=mail"><button type="button" class="btn btn-outline-dark">Adresse email</button></a>
-		<a href="admin.php?modifier=mdp"><button type="button" class="btn btn-outline-dark">Mot de passe</button></a>
-	</p>
-</div>
+	?>
+	<div class="d-flex flex-column align-items-center">
+		<h5>Que souhaitez vous modifier ?</h5>
+		<p>Choisir une option:</p>
+		<p> <a href="admin.php?modifier=mail"><button type="button" class="btn btn-outline-dark">Adresse email</button></a>
+			<a href="admin.php?modifier=mdp"><button type="button" class="btn btn-outline-dark">Mot de passe</button></a>
+		</p>
+	</div>
 
-	
+
 	<hr />
 
 	<?php

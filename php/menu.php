@@ -72,7 +72,7 @@ $rV = mysqli_query($mysqli, "SELECT * FROM vins");
             <td class="text-center">
               <h5><?= $rowD['titre'] ?></h5>
             </td>
-    </tr>
+          </tr>
           <tr>
             <td class="text-center"><?= $rowD['detail'] ?></td>
           </tr>
