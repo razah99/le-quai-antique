@@ -1,16 +1,3 @@
-<?php
-
-function estConnecte()
-{
-  if (isset($_SESSION['mail'])) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -54,8 +41,7 @@ function estConnecte()
             <a class="nav-link" href="#hourly">Horaires</a>
           </li>
         </ul>
-
-        <?php if (estConnecte()) : ?>
+      <?php if (isset($_SESSION['mail'])): ?>
           <p class="d-flex m-2">Bienvenue <?= $_SESSION['mail'] ?></p>
           <div class="btn-group m-2" role="group" aria-label="Basic mixed styles example">
             <a href="member.php" type="button" class="btn bg-body-tertiary shadow-sm">Mon compte</a>

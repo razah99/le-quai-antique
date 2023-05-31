@@ -1,11 +1,11 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['mail'])) {
+/*if (!isset($_SESSION['mail'])) {
 	header("Refresh: 3; url=../php/connexion.php"); //redirection vers le formulaire de connexion
 	echo "Vous devez vous connecter pour accéder à l'espace membre.<br><br><i>Redirection en cours, vers la page de connexion...</i>";
 	exit(0); //on arrête l'éxécution du reste de la page avec exit, si le membre n'est pas connecté
-}
+}*/
 $mail = $_SESSION['mail'];
 
 include 'connect.php';

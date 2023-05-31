@@ -1,0 +1,29 @@
+.gallery {
+    min-width: 320px;
+    max-width: 400px;
+    min-height: 300px;
+    max-height: 320px;
+    border-radius: 0 20px 0 20px;
+    object-fit: fill;
+  }
+  
+  .image-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .image-container:hover .image-title {
+    display: block;
+  }
+  
+  .image-title {
+    display: none;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    text-align: center;
+  }

@@ -1,27 +1,21 @@
 <?php
-include 'headerAdmin.php';
-include 'connect.php';
+session_start();
 
 if (!isset($_SESSION['mail'])) {
 	header("Refresh: 3; url=connexion.php");
 	echo "Vous devez vous connecter pour accéder à l'espace membre.<br><br><i>Redirection en cours, vers la page de connexion...</i>";
-
 	exit(0);
-}
-$req = mysqli_query($mysqli, "SELECT * FROM membres");
-$membre = mysqli_fetch_assoc($req);
-if (mysqli_num_rows($req) == 1) {
-	if (empty($membre['type']) and ($member['type'] !== 'client')) {
-		header(('Location: admin.php'));
-	} else {
-		header('Location: member.php');
-	}
-}
+} 
+
 $mail = $_SESSION['mail'];
+
+include 'connect.php';
 //on récupère les infos du membre si on souhaite les afficher dans la page:
 $req = mysqli_query($mysqli, "SELECT * FROM membres WHERE mail='$mail'");
 $info = mysqli_fetch_assoc($req);
 
+
+include 'headerAdmin.php';
 ?>
 
 <div class="d-flex justify-content-center p-2">

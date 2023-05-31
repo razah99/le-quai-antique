@@ -10,8 +10,22 @@ $Menu2 = mysqli_fetch_assoc($recup2);
 $Menu3 = mysqli_fetch_assoc($recup3);
 
 $mysqli->close();
-?>
 
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/home.css">
+    <title>Acceuil</title>
+</head>
+<body>
+    
+</body>
+</html>
 <main class="main">
     <section class="header">
         <img src="img/chef.jpg" class="firstImage img-fluid" alt="chef">
@@ -29,18 +43,23 @@ $mysqli->close();
                 Chaque assiette est un hommage à la richesse et à la diversité de la gastronomie savoyarde. Que ce soit à travers ses plats signature ou ses créations saisonnières, le chef parvient à émerveiller les papilles de ses convives tout en les invitant à découvrir la passion qui l'anime</p><br>
         </article>
         <div class="d-flex flex-row flex-wrap justify-content-around">
-            <div class="image-container1">
-                <img src="gallery/tapas.jpg" id="gallery1" class="gallery m-2" alt="tapas">
-                <div class="image-title">Tapas</div>
-            </div>
-            <div class="image-container2">
-                <img src="gallery/saumon.jpg" id="gallery1" class="gallery m-2" alt="saumon">
-                <div class="image-title">Saumon</div>
-            </div>
-            <div class="image-container3">
-                <img src="gallery/salade.jpg" id="gallery1" class="gallery m-2" alt="salde">
-                <div class="image-title">Salade</div>
-            </div>
+            <?php
+            // Chemin vers le dossier des images
+            $cheminImages = 'gallery/';
+
+            // Obtention de la liste des fichiers d'images dans le dossier
+            $images = glob($cheminImages . '*.{jpg,jpeg,png,gif,JPG,JPEG,PNG,GIF}', GLOB_BRACE); 
+
+            // Parcours des images et affichage des miniatures
+            foreach ($images as $image) : ?>
+            <?php $info = pathinfo($image);
+            $imageName = basename($image, '.'.$info['extension']); ?>
+                <div class="image-container p-2">
+                        <img src="<?= $image; ?>" alt="Image" class="gallery">
+                    <div class="image-title"><?= $imageName;?>
+                    </div>
+                </div>
+            <?php endforeach; ?>
         </div>
         <div class="d-grid gap-2 col-3 mx-auto mt-5">
             <a href="php/reservation.php" class="btn btn-warning shadow p-3 mb-5" type="button">RÉSERVER</a>
@@ -60,7 +79,7 @@ $mysqli->close();
             <div class="col-sm-4 p-2">
                 <div class="card">
                     <div class="card-body text-center">
-                        <h5 class="card-title"><?= $Menu2["titre"] ?><br><?= $Menu2["prix"] ?></h5>
+                        <h5 class="card-title"><?= $Menu2["titre"] ?><br><?= $Menu2["prix"] ?> €</h5>
                         <p class="card-text"><?= $Menu2["desc"] ?></p><br>
                         <a href="php/reservation.php" class="btn btn-dark shadow">RÉSERVER</a>
                     </div>
@@ -69,7 +88,7 @@ $mysqli->close();
             <div class="col-sm-4 p-2">
                 <div class="card">
                     <div class="card-body text-center">
-                        <h5 class="card-title"><?= $Menu3["titre"] ?><br><?= $Menu3["prix"] ?></h5>
+                        <h5 class="card-title"><?= $Menu3["titre"] ?><br><?= $Menu3["prix"] ?> €</h5>
                         <p class="card-text"><?= $Menu3["desc"] ?></p><br>
                         <a href="php/reservation.php" class="btn btn-dark shadow">RÉSERVER</a>
                     </div>
